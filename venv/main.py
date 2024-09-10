@@ -5,7 +5,7 @@ bot = telebot.TeleBot('7401925570:AAG5cx2OQaqqb93gVLeB2Jq_KR46F553RqM')
 @bot.message_handler(commands=['helloworld', 'start'])
 def hello_word(message):
     if message.text == '/start':
-        bot.send_message(message.chat.id, 'Введи команду helloword')
+        bot.send_message(message.chat.id, 'Введи команду "/helloword"')
         bot.register_next_step_handler(message, hello_word)
     elif message.text == '/helloword':
         bot.send_message(message.chat.id, 'Hello World!')
