@@ -6,3 +6,7 @@ class UserInputInfo(StatesGroup):
     user_select_id = State()
     input_genre = State()
     input_limit = State()
+
+    input_type_of_pictures = State()
+    input_rating = State()
+    input_limit_rating = State()

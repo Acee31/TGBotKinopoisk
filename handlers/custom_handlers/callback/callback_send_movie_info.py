@@ -37,4 +37,4 @@ def send_movie_info(call: CallbackQuery, state: StateContext) -> None:
         bot.send_message(call.message.chat.id, 'Информация о фильме не найдена.')
 
     state.delete()
-    bot.send_message(call.message.chat.id, 'Ваше состояние очищено.\nНажмите /movie_search, чтобы начать новый поиск.')
+    bot.send_message(call.message.chat.id, 'Ваше состояние очищено.\nВыберете новою команду.')

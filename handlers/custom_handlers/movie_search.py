@@ -5,7 +5,6 @@ from states.user_data import UserInputInfo
 from utils.search_movie_by_name import search_movie_by_name_a_genre
 from keyboards.inline.movie_buttons import create_movie_buttons
 from keyboards.inline.buttons_yes_no_on_genre import create_yes_no_keyboard
-from handlers.custom_handlers.callback.callback_send_movie_info import send_movie_info
 from loader import bot
 
 
@@ -70,10 +69,9 @@ def finish(message: Message, state: StateContext) -> None:
             keyboard = create_movie_buttons(movie_data, limit)
             bot.send_message(message.chat.id, 'Выберите из списка ниже для более подробной информации',
                              reply_markup=keyboard)
-            send_movie_info()
         else:
             bot.send_message(message.chat.id, 'Фильмы/сериалы не найдены или произошла ошибка.\n'
-                                              'Пожалуйста, нажмите /movie_search, чтобы заново начать поиск.')
+                                              'Пожалуйста, нажмите новую команду чтобы заново начать поиск.')
             state.delete()
 
 
