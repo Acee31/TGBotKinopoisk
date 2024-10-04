@@ -14,7 +14,8 @@ type_of_picture = {
     'анимационный сериал': 'animated-series'
 }
 
-def search_movie_by_rating(picture_type: str, kp_rating: str, limit: int=250):
+
+def search_movie_by_rating(picture_type: str, kp_rating: str, limit: int=250) -> Optional[List[dict]]:
     valid_type = type_of_picture[picture_type.lower()]
 
     try:
