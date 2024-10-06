@@ -14,3 +14,8 @@ class UserInputInfo(StatesGroup):
     input_type_of_pictures_for_budget = State()
     input_low_budget = State()
     input_limit_for_budget = State()
+
+    input_type_of_pictures_for_h_b = State()
+    input_high_budget = State()
+    input_limit_for_h_b = State()
+
