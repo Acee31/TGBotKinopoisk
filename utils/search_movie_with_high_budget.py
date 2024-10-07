@@ -16,7 +16,7 @@ API_URL = 'https://api.kinopoisk.dev/v1.4/movie'
 headers = {'X-API-KEY': config.RAPID_API_KEY}
 
 
-def search_movie_by_low_budget(picture_type: str, curr: str) -> Optional[List[dict]]:
+def search_movie_by_high_budget(picture_type: str, curr: str) -> Optional[List[dict]]:
     valid_type = type_of_picture[picture_type.lower()]
     try:
         response = requests.get(
@@ -34,7 +34,7 @@ def search_movie_by_low_budget(picture_type: str, curr: str) -> Optional[List[di
                 new_l = []
                 for movie in data['docs']:
                     if 'budget' in movie and 'value' in movie['budget'] and movie['budget']['currency'] == '$':
-                        if movie['budget']['value'] <= int(curr):
+                        if movie['budget']['value'] >= int(curr):
                             new_l.append(movie)
                 return new_l
             else:

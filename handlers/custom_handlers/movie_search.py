@@ -5,6 +5,7 @@ from states.user_data import UserInputInfo
 from utils.search_movie_by_name import search_movie_by_name_a_genre
 from keyboards.inline.movie_buttons import create_movie_buttons
 from keyboards.inline.buttons_yes_no_on_genre import create_yes_no_keyboard
+from telebot.states.sync.middleware import StateMiddleware
 from loader import bot
 
 
@@ -76,6 +77,5 @@ def finish(message: Message, state: StateContext) -> None:
 
 
 bot.add_custom_filter(custom_filters.StateFilter(bot))
-from telebot.states.sync.middleware import StateMiddleware
 
 bot.setup_middleware(StateMiddleware(bot))
