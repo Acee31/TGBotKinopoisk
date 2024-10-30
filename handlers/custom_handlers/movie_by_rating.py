@@ -4,12 +4,17 @@ from states.user_data import UserInputInfo
 from utils.search_by_rating import search_movie_by_rating
 from keyboards.inline.buttons_pictures_types import create_types_button
 from keyboards.inline.movie_rating_buttons import create_movie_rating_buttons
-
+from database.models import User
 from loader import bot
 
 
 @bot.message_handler(commands=['movie_by_rating'])
 def movie_by_rating(message: Message, state: StateContext) -> None:
+    user_id = message.from_user.id
+    if User.get_or_none(User.user_id == user_id) is None:
+        bot.reply_to(message, "Вы не зарегистрированы. Выполните команду /start")
+        return
+
     types_keyboards = create_types_button()
     state.set(UserInputInfo.input_type_of_pictures)
     bot.send_message(message.chat.id, 'Будем искать фильм или сериал?', reply_markup=types_keyboards)

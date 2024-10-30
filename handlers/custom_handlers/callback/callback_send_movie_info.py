@@ -1,6 +1,8 @@
+from datetime import datetime
 from loader import bot
 from telebot.types import CallbackQuery
 from telebot.states.sync.context import StateContext
+from database.models import User, History
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith('movie_'))
@@ -32,6 +34,19 @@ def send_movie_info(call: CallbackQuery, state: StateContext) -> None:
         )
 
         bot.send_message(call.message.chat.id, msg)
+
+        user = User.get(User.user_id == call.from_user.id)
+        History.create(
+            user=user,
+            search_date=datetime.now(),
+            title=title,
+            description=description,
+            rating=rating,
+            year=year,
+            genre=movie_genres,
+            adult_rating=adult_rating,
+            poster=poster
+        )
 
     else:
         bot.send_message(call.message.chat.id, 'Информация о фильме не найдена.')

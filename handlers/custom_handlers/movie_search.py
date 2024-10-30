@@ -6,19 +6,26 @@ from utils.search_movie_by_name import search_movie_by_name_a_genre
 from keyboards.inline.movie_buttons import create_movie_buttons
 from keyboards.inline.buttons_yes_no_on_genre import create_yes_no_keyboard
 from telebot.states.sync.middleware import StateMiddleware
+from database.models import User
 from loader import bot
 
 
 @bot.message_handler(commands=['movie_search'])
 def movie_search(message: Message, state: StateContext) -> None:
+    user_id = message.from_user.id
+    if User.get_or_none(User.user_id == user_id) is None:
+        bot.reply_to(message, "Вы не зарегистрированы. Выполните команду /start")
+        return
+
     state.set(UserInputInfo.input_movie)
     bot.send_message(message.chat.id, 'Введите фильм/сериал (введите на русском)')
 
 
-@bot.message_handler(state='*', commands=['cancel'])
+@bot.message_handler(commands=['cancel'])
 def any_state(message: Message, state: StateContext) -> None:
     state.delete()
-    bot.send_message(message.chat.id, 'Ваша информация удалена. Нажмите /start чтобы начать.')
+    bot.send_message(message.chat.id, 'Ваша информация удалена. Выберите новую команду из меню.\n'
+                                      'Также можете получить список команд через /help')
 
 
 @bot.message_handler(state=UserInputInfo.input_movie)
