@@ -1,6 +1,7 @@
 from typing import List, Dict
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+
 def create_movie_buttons(movie_data: List[Dict], limit: int) -> InlineKeyboardMarkup:
     keyboard = InlineKeyboardMarkup()
 

@@ -19,3 +19,4 @@ class UserInputInfo(StatesGroup):
     input_high_budget = State()
     input_limit_for_h_b = State()
 
+    waiting_for_date = State()

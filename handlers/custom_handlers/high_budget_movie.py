@@ -4,11 +4,17 @@ from states.user_data import UserInputInfo
 from utils.search_movie_with_high_budget import search_movie_by_high_budget
 from keyboards.inline.buttons_picture_types_high_budget import create_types_button_for_h_budget
 from keyboards.inline.buttons_picture_high_budget import create_movie_budget_buttons
+from database.models import User
 from loader import bot
 
 
 @bot.message_handler(commands=['high_budget_movie'])
 def high_budget_movie(message: Message, state: StateContext) -> None:
+    user_id = message.from_user.id
+    if User.get_or_none(User.user_id == user_id) is None:
+        bot.reply_to(message, "Вы не зарегистрированы. Выполните команду /start")
+        return
+
     types_keyboards = create_types_button_for_h_budget()
     state.set(UserInputInfo.input_type_of_pictures_for_h_b)
     bot.send_message(message.chat.id, 'Будем искать фильм или сериал?', reply_markup=types_keyboards)
