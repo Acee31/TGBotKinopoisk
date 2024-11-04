@@ -12,7 +12,7 @@ from handlers.custom_handlers.movie_search import any_state
 
 
 @bot.message_handler(commands=["history"])
-def send_history(message: Message):
+def send_history(message: Message) -> None:
     user_id = message.from_user.id
 
     if User.get_or_none(User.user_id == user_id) is None:
@@ -24,7 +24,7 @@ def send_history(message: Message):
 
 
 @bot.message_handler(func=lambda message: message.text in ["За весь период", "Уточнить дату"])
-def handle_history_option(message: Message, state: StateContext):
+def handle_history_option(message: Message, state: StateContext) -> None:
     user_id = message.from_user.id
 
     if message.text == "За весь период":
@@ -55,7 +55,7 @@ def handle_history_option(message: Message, state: StateContext):
 
 
 @bot.message_handler(state=UserInputInfo.waiting_for_date)
-def get_history_for_date(message: Message, state):
+def get_history_for_date(message: Message, state: StateContext) -> None:
     user_id = message.from_user.id
     input_date = message.text
 

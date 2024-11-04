@@ -1,6 +1,6 @@
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-def create_types_button():
+def create_types_button() -> InlineKeyboardMarkup:
     markup = InlineKeyboardMarkup()
     buttons = [
         InlineKeyboardButton("Фильм", callback_data="movie"),

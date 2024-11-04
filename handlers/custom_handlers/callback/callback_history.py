@@ -3,10 +3,11 @@ from peewee import fn
 from loader import bot
 from telegram_bot_pagination import InlineKeyboardPaginator
 from database.models import User, History
+from telebot.types import CallbackQuery
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("history#"))
-def handle_pagination(call):
+def handle_pagination(call: CallbackQuery) -> None:
     user_id = call.from_user.id
     page = int(call.data.split("#")[1])
 
@@ -32,7 +33,7 @@ def handle_pagination(call):
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("date_history#"))
-def handle_date_pagination(call):
+def handle_date_pagination(call: CallbackQuery) -> None:
     user_id = call.from_user.id
     data = call.data.split("#")
     input_date = data[1]
@@ -67,7 +68,7 @@ def handle_date_pagination(call):
     bot.answer_callback_query(call.id)
 
 
-def format_history_record(record):
+def format_history_record(record: History) -> str:
     return (
         f"Дата: {record.search_date.strftime('%Y-%m-%d %H:%M:%S')}\n"
         f"Название: {record.title}\n"

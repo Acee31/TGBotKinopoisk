@@ -1,6 +1,6 @@
 from telebot.types import ReplyKeyboardMarkup, KeyboardButton
 
-def create_history_buttons():
+def create_history_buttons() -> ReplyKeyboardMarkup:
     markup = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 
     button_all_time = KeyboardButton("За весь период")
